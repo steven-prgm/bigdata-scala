@@ -33,7 +33,7 @@ object InputStreamFactory extends LogSupport {
       log.info("start from, topic = " + offset.topic + ", partition = " + offset.partition + ", start_offset = " + offset.untilOffset)
     }
 
-    val kafka_stream = if (from_offsets.nonEmpty && from_offsets.length == partition_num) {
+    val kafka_stream = if (from_offsets.nonEmpty && from_offsets.size == partition_num) {
       val msg_handler = (mmd: MessageAndMetadata[String, String]) => (mmd.topic, mmd.message)
       KafkaUtils.createDirectStream[String, String, StringDecoder, StringDecoder, (String, String)](streaming_context, kafka_param, from_offsets, msg_handler)
     } else {
